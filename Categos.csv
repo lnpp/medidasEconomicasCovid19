@@ -1,0 +1,10 @@
+Variable,Significado
+Entidad,Entidad federativa de México
+Evento,"Evento que genera la contingencia. En este caso, es el virus que genera la enfermedad Covid-19"
+Clasificación,Categoría en la que se engloba la política
+Programa,Programa institucional del gobierno del estado en el que aparece la medida descrita
+Medida,La medida planteada por el gobierno
+Periodo,"Periodo en el cuál va a trabajar la medida; Contingencia, implica que la medida es para mitigar los efectos económicos de la contingencia, mientras que Día D hace referencia al periodo después de la contingencia."
+Fuente,Artículo o comunicación oficial emitida por parte del gobierno o de un medio de comunicación donde se explica la medida
+Link,Dirección url de la fuente 
+Fecha,Fecha de publicación
