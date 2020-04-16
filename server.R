@@ -24,6 +24,7 @@ output$mapa <- renderLeaflet({
       addPolygons(color = "black",
                   weight = 1,
                   opacity = 1, 
+                  popup = map$ENTIDAD,
                   label = lapply(paste0("<b style = 'color:green;'>Estado: </b><br>", map$ENTIDAD), htmltools::HTML),
                   layerId = map$ENTIDAD,
                   fillColor = "blue", 
