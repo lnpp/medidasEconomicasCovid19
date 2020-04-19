@@ -14,7 +14,16 @@ dbHeader <- dashboardHeader(title = "Medidas económicas ante COVID-19", titleWi
                                      img(src = 'http://lnpp.cide.edu/wp-content/themes/lnpp/images/logo.svg',
                                          title = "LNPP", height = "30px"),
                                      style = "padding-top:10px; padding-bottom:10px;"),
-                                   class = "dropdown"))
+                                   class = "dropdown"), 
+                           
+                           tags$li(a(href = 'https://github.com/lnpp/medidasEconomicasCovid19',
+                                     img(src = 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png',
+                                         title = "LNPP", height = "30px"),
+                                     style = "padding-top:10px; padding-bottom:10px;"),
+                                   class = "dropdown")
+                           
+                           
+                           )
 
 sidebar <- dashboardSidebar(width = 160, 
                             sidebarMenu(
