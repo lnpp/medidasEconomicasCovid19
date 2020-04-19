@@ -2,6 +2,10 @@
 
 ### Tablero de información.
 
+## Aplicación
+
+La aplicación puede consultarse en el siguiente [enlace](https://lnppmicrositio.shinyapps.io/PoliticasEconomicasCovid19/).
+
 ## Propósito
 
 Este micrositio contiene información sobre las medidas que está tomando el gobierno de cada entidad de la República Mexicana para proteger o reactivar la economía ante la contingencia causada por el COVID-19, y las estrategias a tomar para la recuperación económica posterior. 
