@@ -5,8 +5,8 @@ account: lnppmicrositio
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2086127
-bundleId: 3023423
+bundleId: 3034608
 url: https://lnppmicrositio.shinyapps.io/PoliticasEconomicasCovid19/
-when: 1587062702.05024
+when: 1587305217.26562
 asMultiple: FALSE
 asStatic: FALSE

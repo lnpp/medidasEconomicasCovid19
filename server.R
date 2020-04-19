@@ -101,6 +101,7 @@ output$tabla <- DT::renderDT({
   DT::datatable(baseDeDatosGeneral(), 
                 extensions = 'FixedColumns',
                 rownames= FALSE,
+                filter = 'top',
                 options = list(
                   pageLength = 5,
                   language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json'),
@@ -121,5 +122,19 @@ output$download_data <- downloadHandler(
     write.csv(data, file, row.names = FALSE)
   }
 )
+
+output$tabCats <- function() {
+  cat %>%
+    knitr::kable("html") %>%
+    kable_styling("striped", full_width = F) %>% 
+    column_spec(column = 1, bold = TRUE)
+  }
+
+output$tabVars <- function() {
+  vartab %>%
+    knitr::kable("html") %>%
+    kable_styling("striped", full_width = F) %>% 
+    column_spec(column = 1, bold = TRUE)
+}
 
 })

@@ -3,10 +3,15 @@ library(dplyr)
 library(sf)
 library(leaflet)
 library(readxl)
+library(kableExtra)
 
 # Mapas ----
 map <- readRDS("www/BasesDeDatos/mapa.RDS")
   #st_read("www/BasesDeDatos/mapa.geojson")
+
+# Tablas de la documentacion 
+cat <- read_xlsx("www/Documentos/tablasDocumentacion.xlsx", sheet = 1)
+vartab <- read_xlsx("www/Documentos/tablasDocumentacion.xlsx", sheet = 2)
 
 # Escudos ---- 
 coats <- read.csv("www/BasesDeDatos/coats.csv")
@@ -41,4 +46,3 @@ info <- function(edo = "MORELOS"){
   return(texto)
 }
 
-info(edo = "CHIHUAHUA")

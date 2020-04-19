@@ -7,8 +7,15 @@ p{
   color: #616161;
   text-align: justify;
   text-justify: inter-word;
-  padding-right: 2%;
-  padding-left: 2%;
+  padding-right: 1.5em;
+  padding-left: 1.5em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+
+td {
+  font-size: 15px;
 }
 
 .center {
@@ -59,13 +66,13 @@ b.parrafo{
 
 h1 {
   font-family: Poppins;
-  font-size: 40px;
+  font-size: 1.875rem;
   color: #00665d;
 }
 
 h2 {
   font-family: Poppins;
-  font-size: 30px;
+  font-size: 2.875rem;
   color: #00665d;
   text-align: center;
 }

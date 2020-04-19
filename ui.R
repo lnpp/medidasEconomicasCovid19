@@ -19,9 +19,8 @@ dbHeader <- dashboardHeader(title = "Medidas económicas ante COVID-19", titleWi
 sidebar <- dashboardSidebar(width = 160, 
                             sidebarMenu(
                               menuItem(htmltools::HTML("<b>Tablero</b>"), tabName = "PLAT", icon = icon("table")),
+                              menuItem(htmltools::HTML("<b>Documentación</b>"), tabName = "DOCUM", icon = icon("book")), 
                               menuItem(htmltools::HTML("<b>Datos</b>"), tabName = "DATOS", icon = icon("download"))
-                              # , 
-                              # menuItem(htmltools::HTML("<b>Documentación</b>"), tabName = "DOCUM", icon = icon("book"))
                             ))
 
 body <- dashboardBody(  
@@ -34,8 +33,8 @@ tabItems(
         column(12, 
                HTML("<h2>Mapa de las medidas económicas ante la pandemia COVID-19</h2>
                      <h4 style = 'color:gray; text-align:center;'>Información recopilada de notas periodísticas, reportes de prensa y canales oficiales</h4>
-                     <h4 style = 'color:gray; text-align:center;'>Corte realizado hasta el 15 de abril del 2020</h4>
-                     <p>En el presente tablero de información, elaborado por el <a href = 'https://www.lnpp.mx'>Laboratorio Nacional de Políticas Públicas del CIDE</a>, se muestran los planes económicos que los diferentes gobiernos estatales están planeando ejecutar en los próximos días para afrontar y recuperarse del shock económico que representa la pandemía actual del COVID-19.</p> ")
+                     <h4 style = 'color:gray; text-align:center;'>Corte realizado hasta el 19 de abril del 2020</h4>
+                     <p>En el presente tablero de información, elaborado por el <a href = 'https://www.lnpp.mx'>Laboratorio Nacional de Políticas Públicas del CIDE</a>, se muestran los planes económicos que los diferentes gobiernos estatales están planeando ejecutar en los próximos días para afrontar y recuperarse del shock económico que representa la pandemía actual del COVID-19.</p>")
                )
       ),
       
@@ -43,7 +42,6 @@ tabItems(
         column(7, box(width = 12, 
                       solidHeader = TRUE,
                       title = "Mapa de los estados de México",
-                      # footer = htmltools::HTML("<b style = 'color:#545454;'>Seleccione un estado para visualizar una lista de las políticas públicas.</b>"),
                       status = "warning", 
                       fluidPage(
                         fluidRow(
@@ -87,11 +85,31 @@ tabItems(
           DT::dataTableOutput("tabla")
   ) # FIN DE DATOS 
   
-  # ,
-  # tabItem("DOCUM", 
-  #         includeMarkdown("/Users/admin/Downloads/Medidas\ economicas\ ante\ Covid\ 19.md")
-  #         )
-  
+  ,
+  tabItem("DOCUM",
+          h2("Medidas económicas ante Covid-19"),
+          HTML("<h2 style = 'color: black; font-size: 20px;'>Tablero de información.</h2>"), 
+          h2("Propósito"), 
+          p("Este micrositio contiene información sobre las medidas que está tomando el gobierno de cada entidad de la República Mexicana para proteger o reactivar la economía ante la contingencia causada por el COVID-19, y las estrategias a tomar para la recuperación económica posterior."),
+          h2("Base de datos"), 
+          p("La base de datos es un esfuerzo conjunto de los miembros del Laboratorio Nacional de Políticas Públicas para monitorear las medidas económicas del gobierno, y es actualizada de manera constante todos los días, ante nuevas noticias relativas a las medidas ante la contingencia."),
+          p("La información que conforma la base de datos proviene de la revisión de fuentes de comunicación oficiales de los gobiernos de los estados (secciones de prensa de las páginas web estatales, perfiles de Twitter o videos de Youtube) y de publicaciones periodísticas basadas en las declaraciones de funcionarios estatales. En algunos casos, se incluyen propuestas de acciones provenientes de organismos coordinadores estatales. El registro de estas fuentes se hace de manera diaria."), 
+          p('Esta base se encuentra libre para su descarga en la sección de "Datos".'),
+          HTML("<h2 style = 'color: black; font-size: 20px;'>Variables de la base de datos.</h2>"), 
+          fluidPage(
+            fluidRow(
+              column(10, offset = 1, tableOutput("tabVars"))
+            )
+          ),
+          HTML("<h2 style = 'color: black; font-size: 20px;'>Categorias de las medidas.</h2>"), 
+          fluidPage(
+            fluidRow(
+              column(10, offset = 1, tableOutput("tabCats"))
+            )
+          ),
+          h2("Equipo"), 
+          p("El equipo del LNPP encargado del presente trabajo está conformado por: Eduardo Sojo, Cristina Galíndez y Alaín de Remes como coordinadores, así como Juvenal Campos, Nayeli Aguirre, Isabel Maya, Jorge Puga, Victor León, Josué González y Ángel Pérez como responsables de la base de datos.")
+        )
 )  
   
 )
