@@ -42,7 +42,7 @@ tabItems(
         column(12, 
                HTML("<h2>Mapa de las medidas económicas ante la pandemia COVID-19</h2>
                      <h4 style = 'color:gray; text-align:center;'>Información recopilada de notas periodísticas, reportes de prensa y canales oficiales</h4>
-                     <h4 style = 'color:gray; text-align:center;'>Corte realizado hasta el 19 de abril del 2020</h4>
+                     <h4 style = 'color:gray; text-align:center;'>Corte realizado hasta el 20 de abril del 2020</h4>
                      <p>En el presente tablero de información, elaborado por el <a href = 'https://www.lnpp.mx'>Laboratorio Nacional de Políticas Públicas del CIDE</a>, se muestran los planes económicos que los diferentes gobiernos estatales están planeando ejecutar en los próximos días para afrontar y recuperarse del shock económico que representa la pandemía actual del COVID-19.</p>")
                )
       ),
