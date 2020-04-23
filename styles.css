@@ -258,3 +258,12 @@ h1, h2, h3, h4 { font-weight: 400; }
 .leaflet-container {
   background-color: white !important;
 }
+
+@media (max-width:629px) {
+  img#optionalstuff {
+    display: none;
+  }
+}
+
+
+

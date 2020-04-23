@@ -6,19 +6,20 @@ library(shinycssloaders)
 dbHeader <- dashboardHeader(title = "Medidas económicas ante COVID-19", titleWidth = 360,
                            tags$li(a(href = 'https://www.cide.edu',
                                      img(src = 'https://www.cide.edu/wp-content/themes/cide_general/img/logo_cide.png',
-                                         title = "CIDE", height = "30px"),
-                                     style = "padding-top:10px; padding-bottom:10px;"),
+                                         title = "CIDE", height = "30px", id = "optionalstuff"),
+                                     style = "padding-top:10px; padding-bottom:10px;" 
+                                     ),
                                    class = "dropdown"),
 
                            tags$li(a(href = 'http://lnpp.cide.edu',
                                      img(src = 'http://lnpp.cide.edu/wp-content/themes/lnpp/images/logo.svg',
-                                         title = "LNPP", height = "30px"),
+                                         title = "LNPP", height = "30px", id = "optionalstuff"),
                                      style = "padding-top:10px; padding-bottom:10px;"),
                                    class = "dropdown"), 
                            
                            tags$li(a(href = 'https://github.com/lnpp/medidasEconomicasCovid19',
                                      img(src = 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png',
-                                         title = "LNPP", height = "30px"),
+                                         title = "LNPP", height = "30px", id = "optionalstuff"),
                                      style = "padding-top:10px; padding-bottom:10px;"),
                                    class = "dropdown")
                            
@@ -34,7 +35,37 @@ sidebar <- dashboardSidebar(width = 160,
 
 body <- dashboardBody(  
                tags$head(
-                 includeCSS("styles.css")),
+                 includeCSS("styles.css"), 
+                 HTML("<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KFZPZ7N');</script>
+<!-- End Google Tag Manager -->
+")), 
+               
+               tags$head(HTML("<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src='https://www.googletagmanager.com/gtag/js?id=UA-164240496-1'></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-164240496-1');
+</script>
+")),
+               
+               
+                 tags$body(
+                   HTML('<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KFZPZ7N"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+')),
+               
+               
+               
+               
 tabItems(    
   tabItem("PLAT",                
     fluidPage(
@@ -42,7 +73,7 @@ tabItems(
         column(12, 
                HTML("<h2>Mapa de las medidas económicas ante la pandemia COVID-19</h2>
                      <h4 style = 'color:gray; text-align:center;'>Información recopilada de notas periodísticas, reportes de prensa y canales oficiales</h4>
-                     <h4 style = 'color:gray; text-align:center;'>Corte realizado hasta el 20 de abril del 2020</h4>
+                     <h4 style = 'color:gray; text-align:center;'>Corte realizado hasta el 22 de abril del 2020</h4>
                      <p>En el presente tablero de información, elaborado por el <a href = 'https://www.lnpp.mx'>Laboratorio Nacional de Políticas Públicas del CIDE</a>, se muestran los planes económicos que los diferentes gobiernos estatales están planeando ejecutar en los próximos días para afrontar y recuperarse del shock económico que representa la pandemía actual del COVID-19.</p>")
                )
       ),
