@@ -16,7 +16,9 @@ vartab <- read_xlsx("www/Documentos/tablasDocumentacion.xlsx", sheet = 2)
 # Escudos ---- 
 coats <- read.csv("www/BasesDeDatos/coats.csv")
 
-# Funcion de info ----
+# Enlaces Conamer y Micrositios
+enlaces <- read_xlsx("www/BasesDeDatos/LigasEstadosCovid.xlsx")
+
 # Funcion de info ----
 info <- function(edo = "MORELOS"){
   
@@ -41,8 +43,18 @@ info <- function(edo = "MORELOS"){
                                        unique(bd$Link), ">", 
                                        unique(bd$Fuente), "</a>"), 
                                 collapse = "</li>"), "</ul>"))
+  
+  # Enlaces ----
+  enlaces1 <- enlaces %>% filter(Estado == edo)
+  enlacesYmicrositios <- paste0("<br><h4><b>Enlace CONAMER:</b></h4><ul>", 
+                                "<li><a href = ", enlaces1$Liga, ">", enlaces1$Liga, "</a></li>", 
+                                "</ul>", 
+                                "<br><h4><b>Enlace micrositio estatal sobre COVID-19:</b></h4><ul>",
+                                "<li><a href = ", enlaces1$Micrositio, ">", enlaces1$Micrositio, "</a></li>", 
+                                "</ul>")
+  
   # Texto ----
-  texto <- paste(medidas,fuente)
+  texto <- paste(medidas,fuente,enlacesYmicrositios)
   return(texto)
 }
 

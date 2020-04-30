@@ -3,7 +3,8 @@ library(shinydashboard)
 library(stringr)
 library(shinycssloaders)
 
-dbHeader <- dashboardHeader(title = "Medidas económicas ante COVID-19", titleWidth = 360,
+dbHeader <- dashboardHeader(title = "Medidas económicas ante COVID-19", 
+                            titleWidth = 360,
                            tags$li(a(href = 'https://www.cide.edu',
                                      img(src = 'https://www.cide.edu/wp-content/themes/cide_general/img/logo_cide.png',
                                          title = "CIDE", height = "30px", id = "optionalstuff"),
@@ -13,13 +14,19 @@ dbHeader <- dashboardHeader(title = "Medidas económicas ante COVID-19", titleWi
 
                            tags$li(a(href = 'http://lnpp.cide.edu',
                                      img(src = 'http://lnpp.cide.edu/wp-content/themes/lnpp/images/logo.svg',
-                                         title = "LNPP", height = "30px", id = "optionalstuff"),
+                                         title = "LNPP", height = "30px", id = "optionalstuff3"),
+                                     style = "padding-top:10px; padding-bottom:10px;"),
+                                   class = "dropdown"), 
+                           
+                           tags$li(a(href = 'https://www.gob.mx/conamer',
+                                     img(src = 'https://raw.githubusercontent.com/lnpp/medidasEconomicasCovid19/master/www/multimedia/LOGO_CONAMER.png',
+                                         title = "CONAMER", height = "30px", id = "optionalstuff"),
                                      style = "padding-top:10px; padding-bottom:10px;"),
                                    class = "dropdown"), 
                            
                            tags$li(a(href = 'https://github.com/lnpp/medidasEconomicasCovid19',
                                      img(src = 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png',
-                                         title = "LNPP", height = "30px", id = "optionalstuff"),
+                                         title = "REPO", height = "30px", id = "optionalstuff2"),
                                      style = "padding-top:10px; padding-bottom:10px;"),
                                    class = "dropdown")
                            
@@ -30,7 +37,8 @@ sidebar <- dashboardSidebar(width = 160,
                             sidebarMenu(
                               menuItem(htmltools::HTML("<b>Tablero</b>"), tabName = "PLAT", icon = icon("table")),
                               menuItem(htmltools::HTML("<b>Documentación</b>"), tabName = "DOCUM", icon = icon("book")), 
-                              menuItem(htmltools::HTML("<b>Datos</b>"), tabName = "DATOS", icon = icon("download"))
+                              menuItem(htmltools::HTML("<b>Datos</b>"), tabName = "DATOS", icon = icon("download")),
+                              menuItem(htmltools::HTML("<b>Enlaces CONAMER</b>"), tabName = "ENLACES")
                             ))
 
 body <- dashboardBody(  
@@ -54,17 +62,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   gtag('config', 'UA-164240496-1');
 </script>
 ")),
-               
-               
                  tags$body(
                    HTML('<!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KFZPZ7N"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 ')),
-               
-               
-               
                
 tabItems(    
   tabItem("PLAT",                
@@ -73,8 +76,10 @@ tabItems(
         column(12, 
                HTML("<h2>Mapa de las medidas económicas ante la pandemia COVID-19</h2>
                      <h4 style = 'color:gray; text-align:center;'>Información recopilada de notas periodísticas, reportes de prensa y canales oficiales</h4>
-                     <h4 style = 'color:gray; text-align:center;'>Corte realizado hasta el 22 de abril del 2020</h4>
-                     <p>En el presente tablero de información, elaborado por el <a href = 'https://www.lnpp.mx'>Laboratorio Nacional de Políticas Públicas del CIDE</a>, se muestran los planes económicos que los diferentes gobiernos estatales están planeando ejecutar en los próximos días para afrontar y recuperarse del shock económico que representa la pandemía actual del COVID-19.</p>")
+                     <h4 style = 'color:gray; text-align:center;'>Corte realizado hasta el 25 de abril del 2020</h4>
+                     <p>En el presente tablero de información, elaborado por el <a href = 'https://www.lnpp.mx'>Laboratorio Nacional de Políticas Públicas del CIDE</a>, se muestran los planes económicos que los diferentes gobiernos estatales están planeando ejecutar en los próximos días para afrontar y recuperarse del shock económico que representa la pandemía actual del COVID-19.</p>
+                     <p>A partir del 30 de Abril, al final de las propuestas se incluye el enlace a la página del Consejo Nacional de Mejora Regulatoria (CONAMER), así como el enlace a los diferentes micrositios estatales elaborados por las Entidades Federativas para informar a la población sobre la enfermedad Covid-19.</p><br>
+                    ")
                )
       ),
       
@@ -116,6 +121,8 @@ tabItems(
   tabItem("DATOS",                
           h2("Sección de descarga de datos"), 
           br(),
+          HTML("<p style = 'text-align:center;'>En esta sección se pueden descargar los datos del tablero, los cuales contienen información adicional sobre las políticas económicas llevadas a cabo por los Estados.</p>"),
+          br(), 
           fluidPage(
             fluidRow(
               column(1, offset = 5, downloadButton("download_data", label = "Descargar"))
@@ -148,8 +155,18 @@ tabItems(
             )
           ),
           h2("Equipo"), 
-          p("El equipo del LNPP encargado del presente trabajo está conformado por: Eduardo Sojo, Cristina Galíndez y Alaín de Remes como coordinadores, así como Juvenal Campos, Nayeli Aguirre, Isabel Maya, Jorge Puga, Victor León, Josué González y Ángel Pérez como responsables de la base de datos.")
-        )
+          p("El equipo del LNPP encargado del presente trabajo está conformado por: Eduardo Sojo, Cristina Galíndez y Alaín de Remes como coordinadores, así como Juvenal Campos, Nayeli Aguirre, Isabel Maya, Jorge Puga, Victor León, Josué González y Ángel Pérez como responsables de la base de datos."), 
+          p("Igualmente, agradecemos al Equipo del CONAMER por el interés y la ayuda para trabajar juntos en el mejoramiento de esta Base de Datos, así como a la cuenta de Twitter de @sanavigilancia por publicar información sobre los micrositios estatales que informan sobre la enfermedad Covid-19 a la población.")
+        ), 
+  
+  tabItem("ENLACES",
+      HTML("<img src = 'https://raw.githubusercontent.com/lnpp/medidasEconomicasCovid19/master/www/multimedia/LOGO_CONAMER.png' height = 60px style = 'display: block;
+  margin-left: auto;
+  margin-right: auto;'>"),    
+      HTML("<p style = 'text-align:center;'>Enlaces a las páginas del CONAMER por Entidad Federativa y a los Micrositios COVID-19 Estatales</p>"), 
+      tableOutput("tabEnlacesCONAMER")
+  )
+  
 )  
   
 )

@@ -259,11 +259,25 @@ h1, h2, h3, h4 { font-weight: 400; }
   background-color: white !important;
 }
 
-@media (max-width:629px) {
+@media (max-width:1060px) {
   img#optionalstuff {
     display: none;
   }
 }
+
+@media (max-width:390px) {
+  img#optionalstuff2 {
+    display: none;
+  }
+}
+
+@media (max-width:360px) {
+  img#optionalstuff3 {
+    display: none;
+  }
+}
+
+
 
 
 

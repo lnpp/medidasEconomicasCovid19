@@ -128,7 +128,21 @@ output$tabCats <- function() {
     knitr::kable("html") %>%
     kable_styling("striped", full_width = F) %>% 
     column_spec(column = 1, bold = TRUE)
-  }
+}
+
+output$tabEnlacesCONAMER <- function() {
+  enlaces %>%
+    rename("Clave Estado" = "Id", 
+           "Enlace CONAMER" = "Liga") %>% 
+    select(`Clave Estado`, Estado,`Enlace CONAMER`,Micrositio) %>% 
+    mutate(Micrositio = cell_spec(Micrositio, "html", link = Micrositio)) %>% 
+    mutate(`Enlace CONAMER` = cell_spec(`Enlace CONAMER`, "html", link = `Enlace CONAMER`)) %>% 
+    knitr::kable("html", escape = FALSE) %>%
+    kable_styling(bootstrap_options = c("hover", "condensed")) %>% 
+    column_spec(column = 1, bold = TRUE)
+  
+}
+
 
 output$tabVars <- function() {
   vartab %>%
