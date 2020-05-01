@@ -38,7 +38,7 @@ info <- function(edo = "MORELOS"){
     paste(collapse = "<br>")
 
   # Fuente ----
-  fuente <- unique(paste("<br><h4>Fuente(s):</h4><ul>", 
+  fuente <- unique(paste("<br><h4><b>Fuente(s):</b></h4><ul>", 
                          paste0(paste0("<li><a href = ", 
                                        unique(bd$Link), ">", 
                                        unique(bd$Fuente), "</a>"), 
@@ -47,14 +47,19 @@ info <- function(edo = "MORELOS"){
   # Enlaces ----
   enlaces1 <- enlaces %>% filter(Estado == edo)
   enlacesYmicrositios <- paste0("<br><h4><b>Enlace CONAMER:</b></h4><ul>", 
+                                "<img src = 'https://raw.githubusercontent.com/lnpp/medidasEconomicasCovid19/master/www/multimedia/LOGO_CONAMER.png' height = 40px style = 'display: block;
+                                  margin-left: auto;
+                                  margin-right: auto;'>",
                                 "<li><a href = ", enlaces1$Liga, ">", enlaces1$Liga, "</a></li>", 
                                 "</ul>", 
                                 "<br><h4><b>Enlace micrositio estatal sobre COVID-19:</b></h4><ul>",
                                 "<li><a href = ", enlaces1$Micrositio, ">", enlaces1$Micrositio, "</a></li>", 
-                                "</ul>")
+                                "</ul>") %>% 
+    str_replace_all(pattern = "<a href = No hay un micrositio dedicado>No hay un micrositio dedicado</a>", 
+                replacement = "No hay un micrositio dedicado")
   
   # Texto ----
-  texto <- paste(medidas,fuente,enlacesYmicrositios)
+  texto <- paste(medidas,enlacesYmicrositios,fuente)
   return(texto)
 }
 
