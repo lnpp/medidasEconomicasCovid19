@@ -37,8 +37,8 @@ sidebar <- dashboardSidebar(width = 160,
                             sidebarMenu(
                               menuItem(htmltools::HTML("<b>Tablero</b>"), tabName = "PLAT", icon = icon("table")),
                               menuItem(htmltools::HTML("<b>Documentación</b>"), tabName = "DOCUM", icon = icon("book")), 
-                              menuItem(htmltools::HTML("<b>Datos</b>"), tabName = "DATOS", icon = icon("download")),
-                              menuItem(htmltools::HTML("<b>Enlaces CONAMER</b>"), tabName = "ENLACES")
+                              menuItem(htmltools::HTML("<b>Respuestas<br>regulatorias<br>CONAMER</b>"), tabName = "ENLACES", icon = icon("gavel")),
+                              menuItem(htmltools::HTML("<b>Datos</b>"), tabName = "DATOS", icon = icon("download"))
                             ))
 
 body <- dashboardBody(  
@@ -76,14 +76,14 @@ tabItems(
         column(12, 
                HTML("<h2>Mapa de las medidas económicas ante la pandemia COVID-19</h2>
                      <h4 style = 'color:gray; text-align:center;'>Información recopilada de notas periodísticas, reportes de prensa y canales oficiales</h4>
-                     <h4 style = 'color:gray; text-align:center;'>Corte realizado hasta el 3 de mayo del 2020</h4>
+                     <h4 style = 'color:gray; text-align:center;'>Corte realizado hasta el 9 de mayo del 2020</h4>
                      <p>En el presente tablero de información, elaborado por el <a href = 'https://www.lnpp.mx'>Laboratorio Nacional de Políticas Públicas del CIDE</a>, se muestran los planes económicos que los diferentes gobiernos estatales están planeando ejecutar en los próximos días para afrontar y recuperarse del shock económico que representa la pandemía actual del COVID-19.</p>
                      <p>A partir del 30 de Abril, al final de las propuestas se incluye el enlace a la <a href = 'https://www.gob.mx/conamer'>página del Consejo Nacional de Mejora Regulatoria (CONAMER)</a> en donde se registran <b>las medidas que en materia regulatoria están adoptando los estados para atender la contingencia por COVID 19</b>. Igualmente, <b>se añaden los enlaces a los diferentes micrositios estatales</b> elaborados por las Entidades Federativas para informar a la población sobre la enfermedad Covid-19.</p><br>
                     ")
                )
       ),
       
-      fluidRow(
+      fluidRow( # Inicio del UI de escritorio
         column(7, box(width = 12, 
                       solidHeader = TRUE,
                       title = "Mapa de los estados de México",
@@ -114,7 +114,7 @@ tabItems(
             )   
           )  
         )
-      ) 
+      ) # Fin del UI de escritorio.
     )
   ), # FIN DE PLAT
 

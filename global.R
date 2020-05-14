@@ -46,7 +46,7 @@ info <- function(edo = "MORELOS"){
   
   # Enlaces ----
   enlaces1 <- enlaces %>% filter(Estado == edo)
-  enlacesYmicrositios <- paste0("<br><h4><b>Enlace CONAMER:</b></h4><ul>", 
+  enlacesYmicrositios <- paste0("<br><h4><b>Enlace a respuestas regulatorias CONAMER:</b></h4><ul>", 
                                 "<img src = 'https://raw.githubusercontent.com/lnpp/medidasEconomicasCovid19/master/www/multimedia/LOGO_CONAMER.png' height = 40px style = 'display: block;
                                   margin-left: auto;
                                   margin-right: auto;'>",
