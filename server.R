@@ -151,4 +151,75 @@ output$tabVars <- function() {
     column_spec(column = 1, bold = TRUE)
 }
 
+
+# output$mobile <- renderUI({
+#   
+#   # if (session$clientData$output_imgFichaMpios_width < 1100) {
+#   #   width <- session$clientData$output_imgFichaMpios_width
+#   # } else {
+#   #   width <- 1100
+#   # }
+#   
+#   print(session$clientData)
+#   if(session$clientData$output_tabEnlacesCONAMER_hidden < 390){
+#     
+#     ui <- fluidRow( # Inicio del UI de escritorio
+#               column(7, box(width = 12, 
+#                             solidHeader = TRUE,
+#                             title = "Mapa de los estados de México",
+#                             status = "warning", 
+#                             fluidPage(
+#                               fluidRow(
+#                                 column(11, offset = 1, htmltools::HTML("<b style = 'color:#545454; text-align: center; padding-top:0%;'>&nbspSeleccione un estado para visualizar una lista de las políticas públicas.</b>")
+#                                 )
+#                               )
+#                             ),
+#                             withSpinner(leaflet::leafletOutput("mapa", height = "600px"))
+#               )
+#               ), 
+#               column(5, 
+#                      wellPanel(id = "tPanel",style = "overflow-y:scroll; max-height: 685px; background:white; ",
+#                                
+#                                fluidPage(
+#                                  fluidRow(
+#                                    column(1, offset = 5, imageOutput("coat", height = "50px"))
+#                                  ), 
+#                                  br(), br(),
+#                                  fluidRow(
+#                                    column(12,uiOutput("nombre", height = "50px"))
+#                                  ),
+#                                  fluidRow(
+#                                    column(12, uiOutput("contenido"))
+#                                  )
+#                                )   
+#                      )  
+#               )
+#             ) # Fin del UI de escritorio.
+#     
+#     
+#   } else {
+#     ui <- fluidRow(
+#       column(12, 
+#              wellPanel(id = "tPanel",style = "overflow-y:scroll; max-height: 685px; background:white; ",
+#                        
+#                        fluidPage(
+#                          fluidRow(
+#                            column(1, offset = 5, imageOutput("coat", height = "50px"))
+#                          ), 
+#                          br(), br(),
+#                          fluidRow(
+#                            column(12,uiOutput("nombre", height = "50px"))
+#                          ),
+#                          fluidRow(
+#                            column(12, uiOutput("contenido"))
+#                          )
+#                        )   
+#              )  
+#       )
+#     )
+#     
+#   }
+# })
+
+
 })
