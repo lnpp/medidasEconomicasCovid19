@@ -20,7 +20,7 @@ coats <- read.csv("www/BasesDeDatos/coats.csv")
 enlaces <- read_xlsx("www/BasesDeDatos/LigasEstadosCovid.xlsx")
 
 # Funcion de info ----
-info <- function(edo = "MORELOS"){
+info <- function(edo = "JALISCO"){
   
   # Base de datos ----
   bd <- read_xlsx(path = "www/BasesDeDatos/medidas.xlsx")  %>% 
@@ -39,10 +39,10 @@ info <- function(edo = "MORELOS"){
 
   # Fuente ----
   fuente <- unique(paste("<br><h4><b>Fuente(s):</b></h4><ul>", 
-                         paste0(paste0("<li><a href = ", 
-                                       unique(bd$Link), ">", 
-                                       unique(bd$Fuente), "</a>"), 
-                                collapse = "</li>"), "</ul>"))
+                         paste0(unique(paste0("<li><a href = ", 
+                                              bd$Link, ">", 
+                                              bd$Fuente, "</a>")), 
+                                       collapse = "</li>") , "</ul>"))
   
   # Enlaces ----
   enlaces1 <- enlaces %>% filter(Estado == edo)
