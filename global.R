@@ -14,7 +14,7 @@ cat <- read_xlsx("www/Documentos/tablasDocumentacion.xlsx", sheet = 1)
 vartab <- read_xlsx("www/Documentos/tablasDocumentacion.xlsx", sheet = 2)
 
 # Escudos ---- 
-coats <- read.csv("www/BasesDeDatos/coats.csv")
+# coats <- read.csv("www/BasesDeDatos/coats.csv")
 
 # Enlaces Conamer y Micrositios
 enlaces <- read_xlsx("www/BasesDeDatos/LigasEstadosCovid.xlsx")
