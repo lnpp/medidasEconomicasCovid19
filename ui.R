@@ -33,7 +33,7 @@ dbHeader <- dashboardHeader(title = "Medidas económicas ante COVID-19",
                            
                            )
 
-sidebar <- dashboardSidebar(width = 160, 
+sidebar <- dashboardSidebar(width = 210, 
                             sidebarMenu(
                               menuItem(htmltools::HTML("<b>Tablero</b>"), tabName = "PLAT", icon = icon("table")),
                               menuItem(htmltools::HTML("<b>Documentación</b>"), tabName = "DOCUM", icon = icon("book")), 
@@ -71,59 +71,52 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                
 tabItems(    
   tabItem("PLAT",                
-    fluidPage(
-      fluidRow(
-        column(12, 
-               HTML("<h2>Mapa de las medidas económicas ante la pandemia COVID-19</h2>
+          fluidPage(
+            fluidRow(
+              column(12, 
+                     HTML("<h2>Mapa de las medidas económicas ante la pandemia COVID-19</h2>
                      <h4 style = 'color:gray; text-align:center;'>Información recopilada de notas periodísticas, reportes de prensa y canales oficiales</h4>
                      <h4 style = 'color:gray; text-align:center;'>Corte realizado hasta el 14 de mayo del 2020</h4>
                      <p>En el presente tablero de información, elaborado por el <a href = 'https://www.lnpp.mx'>Laboratorio Nacional de Políticas Públicas del CIDE</a>, se muestran los planes económicos que los diferentes gobiernos estatales están planeando ejecutar en los próximos días para afrontar y recuperarse del shock económico que representa la pandemía actual del COVID-19.</p>
-                     <p>A partir del 30 de Abril, al final de las propuestas se incluye el enlace a la <a href = 'https://www.gob.mx/conamer'>página del Consejo Nacional de Mejora Regulatoria (CONAMER)</a> en donde se registran <b>las medidas que en materia regulatoria están adoptando los estados para atender la contingencia por COVID 19</b>. Igualmente, <b>se añaden los enlaces a los diferentes micrositios estatales</b> elaborados por las Entidades Federativas para informar a la población sobre la enfermedad Covid-19.</p><br>
+                     <p>A partir del 30 de Abril, al final de las propuestas se incluye el enlace a la <a href = 'https://www.gob.mx/conamer'>página de la Comisión Nacional de Mejora Regulatoria (CONAMER)</a> en donde se registran <b>las medidas que en materia regulatoria están adoptando los estados para atender la contingencia por COVID 19</b>. Igualmente, <b>se añaden los enlaces a los diferentes micrositios estatales</b> elaborados por las Entidades Federativas para informar a la población sobre la enfermedad Covid-19.</p><br>
                     ")
-               )
-      ),
-      # fluidPage(
-      #   fluidRow(
-      #     column(12, height = 0)
-      #   )
-      # ),
-      
-      # uiOutput("mobile")
-      
-      fluidRow( # Inicio del UI de escritorio
-        column(7, box(width = 12,
-                      solidHeader = TRUE,
-                      title = "Mapa de los estados de México",
-                      status = "warning",
-                      fluidPage(
-                        fluidRow(
-                          column(11, offset = 1, htmltools::HTML("<b style = 'color:#545454; text-align: center; padding-top:0%;'>&nbspSeleccione un estado para visualizar una lista de las políticas públicas.</b>")
-                          )
-                        )
-                      ),
-                      withSpinner(leaflet::leafletOutput("mapa", height = "600px"))
-                      )
-               ),
-        column(5,
-          wellPanel(id = "tPanel",style = "overflow-y:scroll; max-height: 685px; background:white; ",
-
-            fluidPage(
-              fluidRow(
-                column(1, offset = 5, imageOutput("coat", height = "50px"))
-            ),
-            br(), br(),
-              fluidRow(
-              column(12,uiOutput("nombre", height = "50px"))
-            ),
-              fluidRow(
-                column(12, uiOutput("contenido"))
               )
-            )
+            ),
+            
+            fluidRow( # Inicio del UI de escritorio
+              column(8, box(width = 12,
+                            solidHeader = TRUE,
+                            title = HTML("<b style = 'color:white;'>Mapa de los estados de México</b>"),
+                            status = "warning",
+                            fluidPage(
+                              fluidRow(
+                                column(12,  htmltools::HTML("<b class = 'center' style = 'color:black; text-align:center; padding-top:0%;'>Seleccione un estado para visualizar una lista de las políticas públicas.</b>")
+                                )
+                              )
+                            ),
+                            withSpinner(leaflet::leafletOutput("mapa", height = "600px"))
+              )
+              ),
+              column(4,
+                     wellPanel(id = "tPanel",style = "overflow-y:scroll; max-height: 685px; background:white; ",
+                               
+                               fluidPage(
+                                 fluidRow(
+                                   column(12, imageOutput("coat", height = "50px"))
+                                 ),
+                                 br(),
+                                 fluidRow(
+                                   column(12,uiOutput("nombre", height = "20px"))
+                                 ),
+                                 fluidRow(
+                                   column(12, uiOutput("contenido"))
+                                 )
+                               )
+                     )
+              )
+            ) # Fin del UI de escritorio.
           )
-        )
-      ) # Fin del UI de escritorio.
-    )
-  ), # FIN DE PLAT
+  ), 
 
   tabItem("DATOS",                
           h2("Sección de descarga de datos"), 

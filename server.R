@@ -13,7 +13,10 @@ shinyServer(function(input, output, session) {
                  pol_of_click$clickedShape <- input$mapa_shape_click$id
                })
   
-output$mapa <- renderLeaflet({
+  output$mapa <- renderLeaflet({
+    
+    map$ENTIDAD <- str_to_title(map$ENTIDAD)
+    
     leaflet(map, options = leafletOptions(zoomControl = FALSE, 
                                           maxZoom = 5, minZoom = 5)) %>%
       setMaxBounds(lng1 = -86.72, 
@@ -34,23 +37,24 @@ output$mapa <- renderLeaflet({
   })
   
 output$contenido <- renderUI({
-    i <- input$mapa_shape_click$id
-    if(is.null(input$mapa_shape_click$id)) i <- "MORELOS"
-    print(i)
-    info(edo = i) %>% htmltools::HTML() 
-  })
-
-output$nombre <- renderUI({
   i <- input$mapa_shape_click$id
   if(is.null(input$mapa_shape_click$id)) i <- "MORELOS"
+  print(i)
+  info(edo = str_to_upper(i)) %>% htmltools::HTML() 
+})  
+
+output$nombre <- renderUI({
+  i <- toupper(input$mapa_shape_click$id)
   
-  if(i == "CIUDAD DE MÉXICO"){
+  if(is.null(input$mapa_shape_click$id)) i <- "MORELOS"
+  
+  if(i == "CDMX"){
     # Armamos el popup ---
     fluidPage(
       fluidRow(
         column(12, paste0("<p style = 'padding-left: 15px; text-align:center;'> ", 
-                          str_to_title(i), 
-                          "<br><b style = 'font-size: 30px; padding-left: 0px;'> Medidas Económicas</b></p>") %>% htmltools::HTML())
+                          "Ciudad de México", 
+                          "<br><b style = 'font-size: 20px; padding-left: 0px;'>Medidas Económicas</b></p>") %>% htmltools::HTML())
         # , 
         # column(12, "<h3>Medidas económicas</h3>" %>% htmltools::HTML())
       )
@@ -60,9 +64,8 @@ output$nombre <- renderUI({
       fluidRow(
         column(12, paste0("<p style = 'padding-left: 15px; text-align:center;'> Estado de ", 
                           str_to_title(i), 
-                          "<br><b style = 'font-size: 30px; padding-left: 0px;'> Medidas Económicas</b></p>") %>% htmltools::HTML())
-        # , 
-        # column(12, "<h3>Medidas económicas</h3>" %>% htmltools::HTML())
+                          "<br><b style = 'font-size: 20px; padding-left: 0px;'> Medidas Económicas</b></p>") %>% htmltools::HTML())
+        
       )
     )
   }
@@ -71,21 +74,17 @@ output$nombre <- renderUI({
 
 
 output$coat <- renderImage({
-  
-  i <- input$mapa_shape_click$id
+  i <- toupper(input$mapa_shape_click$id)
   if(is.null(input$mapa_shape_click$id)) i <- "MORELOS"
-  
-  if(i == "CIUDAD DE MÉXICO") i <- "CIUDAD DE MEXICO"
-  
-
+  if(i == "CDMX") i <- "CIUDAD DE MÉXICO"
   filename <- paste0("www/multimedia/", i,'.png')
-  
   list(src = filename,
        contentType = "image/png", 
        height = "70px",
        alt = "coat", 
-       class = "center"
-       )
+       #class = "img-responsive"
+       style = "display: block; margin-left: auto; margin-right: auto;"
+  )
 }, deleteFile = FALSE)
   
 

@@ -6,7 +6,7 @@ library(readxl)
 library(kableExtra)
 
 # Mapas ----
-map <- readRDS("www/BasesDeDatos/mapa.RDS")
+map <- readRDS("www/BasesDeDatos/mapa2.RDS")
   #st_read("www/BasesDeDatos/mapa.geojson")
 
 # Tablas de la documentacion 
