@@ -16,8 +16,8 @@ write.csv(bdEcon,
 
 # Fecha de actualizacion 
 # corte <- "21 de mayo del 2020"
-# saveRDS(corte, "www/BasesDeDatos/fechaDeCorte.rds")
-corte <- readRDS("www/BasesDeDatos/fechaDeCorte.rds")
+# write.csv(corte, "www/BasesDeDatos/fechaDeCorte.csv", fileEncoding = "UTF-8", na = "", row.names = F)
+corte <- read.csv("www/BasesDeDatos/fechaDeCorte.csv")[1,1] %>% as.character()
 
 # Mapas ----
 map <- readRDS("www/BasesDeDatos/mapa2.RDS")
