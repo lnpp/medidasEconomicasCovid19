@@ -4,6 +4,13 @@ library(DT)
 
 shinyServer(function(input, output, session) {
 
+  output$fechaDeCorte <- renderUI({
+    HTML("<h4 style = 'color:gray; text-align:center;'>Corte realizado hasta el ", 
+    corte, 
+    "</h4>")
+  })
+  
+  
   # Poligono de clickeo
   # Captamos donde da el click el usuario
   pol_of_click <- reactiveValues(clickedShape = NULL)

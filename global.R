@@ -5,6 +5,20 @@ library(leaflet)
 library(readxl)
 library(kableExtra)
 
+
+bdEcon <- read_xlsx(path = "www/BasesDeDatos/medidas.xlsx")
+write.csv(bdEcon, 
+          "www/BasesDeDatos/medidas.csv",
+          fileEncoding = "UTF-8", 
+          row.names = F, 
+          na = ""
+          )
+
+# Fecha de actualizacion 
+# corte <- "21 de mayo del 2020"
+# saveRDS(corte, "www/BasesDeDatos/fechaDeCorte.rds")
+corte <- readRDS("www/BasesDeDatos/fechaDeCorte.rds")
+
 # Mapas ----
 map <- readRDS("www/BasesDeDatos/mapa2.RDS")
   #st_read("www/BasesDeDatos/mapa.geojson")
@@ -23,7 +37,7 @@ enlaces <- read_xlsx("www/BasesDeDatos/LigasEstadosCovid.xlsx")
 info <- function(edo = "JALISCO"){
   
   # Base de datos ----
-  bd <- read_xlsx(path = "www/BasesDeDatos/medidas.xlsx")  %>% 
+  bd <- bdEcon  %>% 
     mutate(Entidad = toupper(Entidad)) %>% 
     filter(Entidad == edo) %>% 
     arrange(`Clasificación`)
