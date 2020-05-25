@@ -81,9 +81,15 @@ output$nombre <- renderUI({
 
 
 output$coat <- renderImage({
+  # toupper("Nuevo León")
   i <- toupper(input$mapa_shape_click$id)
+  i <- str_replace_all(string = i,  c("Á" = "A", 
+                                      "É" = "E", 
+                                      "Í" = "I", 
+                                      "Ó" = "O", 
+                                      "Ú" = "U"))
   if(is.null(input$mapa_shape_click$id)) i <- "MORELOS"
-  if(i == "CDMX") i <- "CIUDAD DE MÉXICO"
+  if(i == "CDMX") i <- "CIUDAD DE MEXICO"
   filename <- paste0("www/multimedia/", i,'.png')
   list(src = filename,
        contentType = "image/png", 
