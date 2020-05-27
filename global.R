@@ -7,17 +7,18 @@ library(kableExtra)
 
 
 bdEcon <- read_xlsx(path = "www/BasesDeDatos/medidas.xlsx")
-write.csv(bdEcon, 
-          "www/BasesDeDatos/medidas.csv",
-          fileEncoding = "UTF-8", 
-          row.names = F, 
-          na = ""
-          )
+# write.csv(bdEcon, 
+#           "www/BasesDeDatos/medidas.csv",
+#           fileEncoding = "UTF-8", 
+#           row.names = F, 
+#           na = ""
+#           )
 
 # Fecha de actualizacion 
 # corte <- "21 de mayo del 2020"
 # write.csv(corte, "www/BasesDeDatos/fechaDeCorte.csv", fileEncoding = "UTF-8", na = "", row.names = F)
-corte <- read.csv("www/BasesDeDatos/fechaDeCorte.csv")[1,1] %>% as.character()
+corte <- read.csv("www/BasesDeDatos/fechaDeCorte.csv")[1,1] %>% 
+  as.character()
 
 # Mapas ----
 map <- readRDS("www/BasesDeDatos/mapa2.RDS")
@@ -46,7 +47,13 @@ info <- function(edo = "JALISCO"){
     group_by(Clasificación) %>% 
     summarise(medidas = paste0("<b>", first(Clasificación), "</b>",
                                "<ul>",  
-                               paste0("<li>", Medida, "</li>", collapse = ""),
+                               paste0("<li>",
+                                      "<a href = '", 
+                                      Link, "'>",
+                                      Medida, 
+                                      "</a>",
+                                      "</li>", 
+                                      collapse = ""),
                                "</ul>")) %>% 
     pull(medidas)  %>% 
     paste(collapse = "<br>")

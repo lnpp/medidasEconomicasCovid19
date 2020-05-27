@@ -1,6 +1,11 @@
 /*Fuentes*/
 @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
 
+a{
+  font-family: Poppins;
+  font-size: 1.5rem; 
+}
+
 p{
   font-family: Poppins;
   font-size: 15px;
