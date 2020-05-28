@@ -2,6 +2,8 @@
 
 ### Tablero de información.
 
+![](https://raw.githubusercontent.com/lnpp/medidasEconomicasCovid19/master/www/multimedia/ogImage.png)
+
 ## Aplicación
 
 La aplicación puede consultarse en el siguiente [enlace](https://lnppmicrositio.shinyapps.io/PoliticasEconomicasCovid19/).
