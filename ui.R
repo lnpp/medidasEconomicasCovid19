@@ -77,13 +77,13 @@ tabItems(
                      HTML("<h2>Mapa de las medidas económicas ante la pandemia COVID-19</h2>
                      <h4 style = 'color:gray; text-align:center;'>Información recopilada de notas periodísticas, reportes de prensa y canales oficiales</h4>"), 
                      uiOutput("fechaDeCorte"),
-                     HTML("<p>En el presente tablero de información, elaborado por el <a href = 'https://www.lnpp.mx'>Laboratorio Nacional de Políticas Públicas del CIDE</a>, se muestran los planes económicos que los diferentes gobiernos estatales están planeando ejecutar en los próximos días para afrontar y recuperarse del shock económico que representa la pandemía actual del COVID-19.</p>
-                     <p>A partir del 30 de Abril, al final de las propuestas se incluye el enlace a la <a href = 'https://www.gob.mx/conamer'>página de la Comisión Nacional de Mejora Regulatoria (CONAMER)</a> en donde se registran <b>las medidas que en materia regulatoria están adoptando los estados para atender la contingencia por COVID 19</b>. Igualmente, <b>se añaden los enlaces a los diferentes micrositios estatales</b> elaborados por las Entidades Federativas para informar a la población sobre la enfermedad Covid-19.</p><br>
+                     HTML("<p>En el presente tablero de información, elaborado por el <a target='_blank' rel='noopener noreferrer' href = 'https://www.lnpp.mx'>Laboratorio Nacional de Políticas Públicas del CIDE</a>, se muestran los planes económicos que los diferentes gobiernos estatales están planeando ejecutar en los próximos días para afrontar y recuperarse del shock económico que representa la pandemía actual del COVID-19.</p>
+                     <p>A partir del 30 de Abril, al final de las propuestas se incluye el enlace a la <a target='_blank' rel='noopener noreferrer' href = 'https://www.gob.mx/conamer'>página de la Comisión Nacional de Mejora Regulatoria (CONAMER)</a> en donde se registran <b>las medidas que en materia regulatoria están adoptando los estados para atender la contingencia por COVID 19</b>. Igualmente, <b>se añaden los enlaces a los diferentes micrositios estatales</b> elaborados por las Entidades Federativas para informar a la población sobre la enfermedad Covid-19.</p><br>
                     ")
               )
             ),
             
-            fluidRow( # Inicio del UI de escritorio
+            fluidRow( 
               column(8, box(width = 12,
                             solidHeader = TRUE,
                             title = HTML("<b style = 'color:white;'>Mapa de los estados de México</b>"),
@@ -114,7 +114,7 @@ tabItems(
                                )
                      )
               )
-            ) # Fin del UI de escritorio.
+            ) 
           )
   ), 
 
@@ -156,6 +156,7 @@ tabItems(
           ),
           h2("Equipo"), 
           p("El equipo del LNPP encargado del presente trabajo está conformado por: Eduardo Sojo, Cristina Galíndez y Alaín de Remes como coordinadores, así como Juvenal Campos, Nayeli Aguirre, Isabel Maya, Jorge Puga, Victor León, Josué González y Ángel Pérez como responsables de la base de datos."), 
+          p("Posteriormente se incorporaron al equipo de registro de información a Fernando Valdez Benavides, Helios Omar García Martínez y Ami Gabriela Sosa Vera, del equipo de Prácticas Profesionales del LNPP."),
           p("Igualmente, agradecemos al Equipo del CONAMER por el interés y la ayuda para trabajar juntos en el mejoramiento de esta Base de Datos, así como a la cuenta de Twitter de @sanavigilancia por publicar información sobre los micrositios estatales que informan sobre la enfermedad Covid-19 a la población.")
         ), 
   

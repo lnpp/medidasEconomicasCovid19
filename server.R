@@ -122,7 +122,6 @@ output$tabla <- DT::renderDT({
                   scrollX = TRUE,
                   escape = T) 
   )
-  
 })
 
 # Create a download handler
