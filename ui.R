@@ -2,174 +2,185 @@ library(shiny)
 library(shinydashboard)
 library(stringr)
 library(shinycssloaders)
+library(leaflet)
+library(shinyWidgets)
 
-dbHeader <- dashboardHeader(title = "Medidas económicas ante COVID-19", 
-                            titleWidth = 360,
-                           tags$li(a(href = 'https://www.cide.edu',
-                                     img(src = 'https://www.cide.edu/wp-content/themes/cide_general/img/logo_cide.png',
-                                         title = "CIDE", height = "30px", id = "optionalstuff"),
-                                     style = "padding-top:10px; padding-bottom:10px;" 
-                                     ),
-                                   class = "dropdown"),
+# Define UI for application that draws a histogram
+ui <- navbarPage(title = HTML("Mapa de medidas económicas <br> COVID-19"), id = "intro",
 
-                           tags$li(a(href = 'http://lnpp.cide.edu',
-                                     img(src = 'http://lnpp.cide.edu/wp-content/themes/lnpp/images/logo.svg',
-                                         title = "LNPP", height = "30px", id = "optionalstuff3"),
-                                     style = "padding-top:10px; padding-bottom:10px;"),
-                                   class = "dropdown"), 
-                           
-                           tags$li(a(href = 'https://www.gob.mx/conamer',
-                                     img(src = 'https://raw.githubusercontent.com/lnpp/medidasEconomicasCovid19/master/www/multimedia/LOGO_CONAMER.png',
-                                         title = "CONAMER", height = "30px", id = "optionalstuff"),
-                                     style = "padding-top:10px; padding-bottom:10px;"),
-                                   class = "dropdown"), 
-                           
-                           tags$li(a(href = 'https://github.com/lnpp/medidasEconomicasCovid19',
-                                     img(src = 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png',
-                                         title = "REPO", height = "30px", id = "optionalstuff2"),
-                                     style = "padding-top:10px; padding-bottom:10px;"),
-                                   class = "dropdown")
-                           
-                           
-                           )
-
-sidebar <- dashboardSidebar(width = 210, 
-                            sidebarMenu(
-                              menuItem(htmltools::HTML("<b>Tablero</b>"), tabName = "PLAT", icon = icon("table")),
-                              menuItem(htmltools::HTML("<b>Documentación</b>"), tabName = "DOCUM", icon = icon("book")), 
-                              menuItem(htmltools::HTML("<b>Respuestas<br>regulatorias<br>CONAMER</b>"), tabName = "ENLACES", icon = icon("gavel")),
-                              menuItem(htmltools::HTML("<b>Datos</b>"), tabName = "DATOS", icon = icon("download"))
-                            ))
-
-body <- dashboardBody(  
-               tags$head(
-                 includeCSS("styles.css"), 
-                 HTML("<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-KFZPZ7N');</script>
-<!-- End Google Tag Manager -->
-")), 
-               
-               tags$head(HTML("<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src='https://www.googletagmanager.com/gtag/js?id=UA-164240496-1'></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'UA-164240496-1');
-</script>
-")),
-                 tags$body(
-                   HTML('<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KFZPZ7N"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-')),
-               
-tabItems(    
-  tabItem("PLAT",                
-          fluidPage(
-            fluidRow(
-              column(12, 
-                     HTML("<h2>Mapa de las medidas económicas ante la pandemia COVID-19</h2>
-                     <h4 style = 'color:gray; text-align:center;'>Información recopilada de notas periodísticas, reportes de prensa y canales oficiales</h4>"), 
-                     uiOutput("fechaDeCorte"),
-                     HTML("<p>En el presente tablero de información, elaborado por el <a target='_blank' rel='noopener noreferrer' href = 'https://www.lnpp.mx'>Laboratorio Nacional de Políticas Públicas del CIDE</a>, se muestran los planes económicos que los diferentes gobiernos estatales están planeando ejecutar en los próximos días para afrontar y recuperarse del shock económico que representa la pandemía actual del COVID-19.</p>
-                     <p>A partir del 30 de Abril, al final de las propuestas se incluye el enlace a la <a target='_blank' rel='noopener noreferrer' href = 'https://www.gob.mx/conamer'>página de la Comisión Nacional de Mejora Regulatoria (CONAMER)</a> en donde se registran <b>las medidas que en materia regulatoria están adoptando los estados para atender la contingencia por COVID 19</b>. Igualmente, <b>se añaden los enlaces a los diferentes micrositios estatales</b> elaborados por las Entidades Federativas para informar a la población sobre la enfermedad Covid-19.</p><br>
-                    ")
-              )
-            ),
-            
-            fluidRow( 
-              column(8, box(width = 12,
-                            solidHeader = TRUE,
-                            title = HTML("<b style = 'color:white;'>Mapa de los estados de México</b>"),
-                            status = "warning",
-                            fluidPage(
-                              fluidRow(
-                                column(12,  htmltools::HTML("<b class = 'center' style = 'color:black; text-align:center; padding-top:0%;'>Seleccione un estado para visualizar una lista de las políticas públicas.</b>")
-                                )
+                 tabPanel("Introducción",
+                          fluidPage(
+                            fluidRow(
+                              column(12,
+                                     HTML("<h2>Mapa de las medidas económicas ante la pandemia COVID-19</h2>
+                                      <h4 style = 'color:gray; text-align:center;'>Información recopilada de notas periodísticas, reportes de prensa y canales oficiales</h4>"),
+                                     uiOutput("fechaDeCorte"),
+                                     HTML("<p>En el presente tablero de información, elaborado por el <a target='_blank' rel='noopener noreferrer' href = 'https://www.lnpp.mx'>Laboratorio Nacional de Políticas Públicas del CIDE</a>, se muestran los planes económicos que los diferentes gobiernos estatales están planeando ejecutar en los próximos días para afrontar y recuperarse del shock económico que representa la pandemía actual del COVID-19.</p>
+                                      <p>A partir del 30 de Abril, al final de las propuestas se incluye el enlace a la <a target='_blank' rel='noopener noreferrer' href = 'https://www.gob.mx/conamer'>página de la Comisión Nacional de Mejora Regulatoria (CONAMER)</a> en donde se registran <b>las medidas que en materia regulatoria están adoptando los estados para atender la contingencia por COVID 19</b>. Igualmente, <b>se añaden los enlaces a los diferentes micrositios estatales</b> elaborados por las Entidades Federativas para informar a la población sobre la enfermedad Covid-19.</p><br>
+                                     ")
                               )
                             ),
-                            withSpinner(leaflet::leafletOutput("mapa", height = "600px"))
-              )
-              ),
-              column(4,
-                     wellPanel(id = "tPanel",style = "overflow-y:scroll; max-height: 685px; background:white; ",
-                               
-                               fluidPage(
-                                 fluidRow(
-                                   column(12, imageOutput("coat", height = "50px"))
-                                 ),
-                                 br(),
-                                 fluidRow(
-                                   column(12,uiOutput("nombre", height = "20px"))
-                                 ),
-                                 fluidRow(
-                                   column(12, uiOutput("contenido"))
-                                 )
-                               )
-                     )
-              )
-            ) 
-          )
-  ), 
+                          ),
+                          
+                          h2("Medidas económicas ante Covid-19"),
+                          HTML("<h2 style = 'color: black; font-size: 20px;'>Tablero de información.</h2>"),
+                          h2("Propósito"),
+                          p("Este micrositio contiene información sobre las medidas que está tomando el gobierno de cada entidad de la República Mexicana para proteger o reactivar la economía ante la contingencia causada por el COVID-19, y las estrategias a tomar para la recuperación económica posterior."),
+                          h2("Base de datos"),
+                          p("La base de datos es un esfuerzo conjunto de los miembros del Laboratorio Nacional de Políticas Públicas para monitorear las medidas económicas de los gobiernos locales y es actualizada de manera constante."),
+                          p("La información que conforma la base de datos proviene de la revisión de fuentes de comunicación oficiales de los gobiernos de los estados (secciones de prensa de las páginas web estatales, perfiles de Twitter o videos de Youtube) y de publicaciones periodísticas basadas en las declaraciones de funcionarios estatales."),
+                          p('Esta base se encuentra libre para su descarga en la sección de "Datos".'),
+                          HTML("<h2 style = 'color: black; font-size: 20px;'>Variables de la base de datos.</h2>"),
+                          fluidPage(
+                            fluidRow(
+                              column(10, offset = 1, tableOutput("tabVars"))
+                            )
+                          ),
+                          HTML("<h2 style = 'color: green; font-size: 20px;'>Categorías de las variables</h2>"),
+                          HTML("<h2 style = 'color: black; font-size: 20px;'>Temporalidad de las medidas.</h2>"),
+                          fluidPage(
+                            fluidRow(
+                              column(10, offset = 1, tableOutput("tabTemporalidad"))
+                            )
+                          ),
+                          HTML("<h2 style = 'color: black; font-size: 20px;'>Tipo de Programa.</h2>"),
+                          fluidPage(
+                            fluidRow(
+                              column(10, offset = 1, tableOutput("tabTipoDePrograma"))
+                            )
+                          ),
+                          HTML("<h2 style = 'color: black; font-size: 20px;'>Tipo de Categoría de Apoyo.</h2>"),
+                          fluidPage(
+                            fluidRow(
+                              column(10, offset = 1, tableOutput("tabCategoriaDeApoyo"))
+                            )
+                          ),
+                          HTML("<h2 style = 'color: black; font-size: 20px;'>Población Objetivo.</h2>"),
+                          fluidPage(
+                            fluidRow(
+                              column(10, offset = 1, tableOutput("tabPoblacionObjetivo"))
+                            )
+                          ),
+                          
+                          h2("Equipo"),
+                          p("El equipo del LNPP encargado del presente trabajo está conformado por: Eduardo Sojo, Cristina Galíndez y Alaín de Remes como coordinadores, así como Juvenal Campos, Nayeli Aguirre, Isabel Maya, Jorge Puga, Victor León, Josué González y Ángel Pérez como responsables de la base de datos."),
+                          p("Posteriormente se retoma el trabajo con la incormporación al equipo de Fernando Valdez Benavides, Helios Omar García Martínez y Ami Gabriela Sosa Vera, del programa de Prácticas Profesionales del LNPP."),
+                          p("Igualmente, agradecemos al Equipo del CONAMER por el interés y la ayuda para trabajar juntos en el mejoramiento de esta Base de Datos, así como a la cuenta de Twitter de @sanavigilancia por publicar información sobre los micrositios estatales que informan sobre la enfermedad Covid-19 a la población.")
+                        
+                          ),                 
+                        
+        tabPanel("Medidas por Entidad", 
+                 fluidPage(
+                   fluidRow(
+                     column(6, offset = 3, 
+                            selectInput(inputId = "selEstado2",
+                                        width = "100%",
+                                        label = "Seleccione entidad para visualizar sus políticas económicas",
+                                        choices = sort(unique(bd$Entidad))
+                                        )
+                            )
+                   )
+                 ),
+                 br(),
+                  fluidPage(
+                    fluidRow(
+                      column(8, offset = 2, 
+                            imageOutput("coat", height = "50px"),
+                            br(),
+                            uiOutput("nombre", height = "20px"),
+                            uiOutput("contenido2")
+                         )
+                    )
+                  )
+        ),         
+                          
+        tabPanel("Mapa",
+                          div(class="outer",
+                              tags$head(
+                                # Include our custom CSS
+                                includeCSS("styles.css"),
+                                includeScript("gomap.js")),  
+                              
+                              leafletOutput("mapa2", width="100%", height="100%"),    
+                              
+                              absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
+                                            draggable = TRUE, top = 150, left = "auto", right = 30, bottom = "auto",
+                                            width = 400, height = 250,   
+                                            br(),
+                                            selectInput(inputId = "selMapa1", 
+                                                        label = "Seleccione información", 
+                                                        choices = c("Tipo de Programa", 
+                                                                    "Categoría de Apoyo", 
+                                                                    "Población Objetivo"), width = "100%"), 
+                                            br(), 
+                                            uiOutput("mostrarOpts")
 
-  tabItem("DATOS",                
-          h2("Sección de descarga de datos"), 
-          br(),
-          HTML("<p style = 'text-align:center;'>En esta sección se pueden descargar los datos del tablero, los cuales contienen información adicional sobre las políticas económicas llevadas a cabo por los Estados.</p>"),
-          br(), 
-          fluidPage(
-            fluidRow(
-              column(1, offset = 5, downloadButton("download_data", label = "Descargar"))
-            )
-          ),
-          br(),
-          DT::dataTableOutput("tabla")
-  ) # FIN DE DATOS 
-  
-  ,
-  tabItem("DOCUM",
-          h2("Medidas económicas ante Covid-19"),
-          HTML("<h2 style = 'color: black; font-size: 20px;'>Tablero de información.</h2>"), 
-          h2("Propósito"), 
-          p("Este micrositio contiene información sobre las medidas que está tomando el gobierno de cada entidad de la República Mexicana para proteger o reactivar la economía ante la contingencia causada por el COVID-19, y las estrategias a tomar para la recuperación económica posterior."),
-          h2("Base de datos"), 
-          p("La base de datos es un esfuerzo conjunto de los miembros del Laboratorio Nacional de Políticas Públicas para monitorear las medidas económicas del gobierno, y es actualizada de manera constante todos los días, ante nuevas noticias relativas a las medidas ante la contingencia."),
-          p("La información que conforma la base de datos proviene de la revisión de fuentes de comunicación oficiales de los gobiernos de los estados (secciones de prensa de las páginas web estatales, perfiles de Twitter o videos de Youtube) y de publicaciones periodísticas basadas en las declaraciones de funcionarios estatales. En algunos casos, se incluyen propuestas de acciones provenientes de organismos coordinadores estatales. El registro de estas fuentes se hace de manera diaria."), 
-          p('Esta base se encuentra libre para su descarga en la sección de "Datos".'),
-          HTML("<h2 style = 'color: black; font-size: 20px;'>Variables de la base de datos.</h2>"), 
-          fluidPage(
-            fluidRow(
-              column(10, offset = 1, tableOutput("tabVars"))
-            )
-          ),
-          HTML("<h2 style = 'color: black; font-size: 20px;'>Categorias de las medidas.</h2>"), 
-          fluidPage(
-            fluidRow(
-              column(10, offset = 1, tableOutput("tabCats"))
-            )
-          ),
-          h2("Equipo"), 
-          p("El equipo del LNPP encargado del presente trabajo está conformado por: Eduardo Sojo, Cristina Galíndez y Alaín de Remes como coordinadores, así como Juvenal Campos, Nayeli Aguirre, Isabel Maya, Jorge Puga, Victor León, Josué González y Ángel Pérez como responsables de la base de datos."), 
-          p("Posteriormente se incorporaron al equipo de registro de información a Fernando Valdez Benavides, Helios Omar García Martínez y Ami Gabriela Sosa Vera, del equipo de Prácticas Profesionales del LNPP."),
-          p("Igualmente, agradecemos al Equipo del CONAMER por el interés y la ayuda para trabajar juntos en el mejoramiento de esta Base de Datos, así como a la cuenta de Twitter de @sanavigilancia por publicar información sobre los micrositios estatales que informan sobre la enfermedad Covid-19 a la población.")
+                              )
+                          )
+                 ), #### 
+
+      tabPanel("Enlaces",
+            HTML("<img src = 'https://raw.githubusercontent.com/lnpp/medidasEconomicasCovid19/master/www/multimedia/LOGO_CONAMER.png' height = 60px style = 'display: block;
+        margin-left: auto;
+        margin-right: auto;'>"),
+            HTML("<p style = 'text-align:center;'>Enlaces a las páginas del CONAMER por Entidad Federativa y a los Micrositios COVID-19 Estatales</p>"),
+          wellPanel(id = "tablaPanel",style = "overflow-x:scroll; max-height: auto; background:white; ",
+            tableOutput("tabEnlacesCONAMER")
+          ) # Fin del Panel
         ), 
-  
-  tabItem("ENLACES",
-      HTML("<img src = 'https://raw.githubusercontent.com/lnpp/medidasEconomicasCovid19/master/www/multimedia/LOGO_CONAMER.png' height = 60px style = 'display: block;
-  margin-left: auto;
-  margin-right: auto;'>"),    
-      HTML("<p style = 'text-align:center;'>Enlaces a las páginas del CONAMER por Entidad Federativa y a los Micrositios COVID-19 Estatales</p>"), 
-      tableOutput("tabEnlacesCONAMER")
-  )
-  
-)  
-  
-)
+      
+      tabPanel("Datos",                
+                h2("Sección de descarga de datos"),
+                br(),
+                HTML("<p style = 'text-align:center;'>En esta sección se pueden descargar los datos del tablero, los cuales contienen información adicional sobre las políticas económicas llevadas a cabo por los Estados.</p>"),
 
-ui <- dashboardPage(skin = "black", dbHeader, sidebar, body)
+    wellPanel(id = "tablaPanel",style = "max-height: auto; background:white;",
+         
+                fluidPage(
+                     fluidRow(
+                       column(4, 
+                              HTML("<b>Seleccione Entidad: </b>"), br(),
+                              myPickerInput(inputId = "selEdoFiltro", 
+                                                   title = "Todas las entidades",
+                                                   # multiple = TRUE, 
+                                                   # selected = "Todas las entidades", 
+                                                   choices = c("Todas las entidades", 
+                                                               sort(unique(bd$Entidad))))
+                              ), 
+                       column(4, selectInput(inputId = "selCategoriaApoyoFiltro", 
+                                             label = "Seleccione Categoría de Apoyo", 
+                                             # multiple = TRUE, 
+                                             selected = "Todas las categorías",
+                                             choices = c("Todas las categorías", 
+                                                         sort(unique(bd$`Categoría de Apoyo`))))), 
+                       column(4, selectInput(inputId = "selPobObjetivoFiltro", 
+                                             label = "Seleccione Población Objetivo", 
+                                             # multiple = TRUE, 
+                                             selected = "Todas las Poblaciones Objetivo", 
+                                             choices = c("Todas las Poblaciones Objetivo", 
+                                                         sort(unique(bd$Clasificación)))))
+                       ), 
+                     fluidRow(
+                       column(4, selectInput(inputId = "selPeriodoFiltro", 
+                                             label = "Seleccione Periodo", 
+                                             # multiple = TRUE, 
+                                             selected = "Todos los periodos",
+                                             choices = c("Todos los periodos",
+                                                         sort(unique(bd$Periodo))))), 
+                       column(4, selectInput(inputId = "selMontoFiltro", 
+                                             label = "Seleccione Monto", 
+                                             # multiple = TRUE, 
+                                             selected = "Con y sin monto reportado",
+                                             choices = c("Con y sin monto reportado", "Con monto reportado", "Sin monto reportado"))), 
+                       column(4, br(), downloadButton("download_data", style = "    padding-top: 5px;margin-top: 6px;", label = "Descargar"))        
+                 
+                   )      
+               )
+            ),
+               
+                br(),
+                br(),
+                withSpinner(DT::dataTableOutput("tabla"))
+         # FIN DE DATOS
+      )
+)
