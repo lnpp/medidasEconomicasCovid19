@@ -12,10 +12,11 @@ p{
   color: #616161;
   text-align: justify;
   text-justify: inter-word;
-  padding-right: 1.5em;
-  padding-left: 1.5em;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
+  padding-left: 0px;
+  padding-right: 0px;
+  
 }
 
 .main-header .logo{
@@ -346,12 +347,12 @@ h1, h2, h3, h4 { font-weight: 400; }
   background-color: white !important;
 }
 
+
 .navbar-brand {
-    padding-top: 5px;
-    padding-bottom: 0px;
     text-align:center;
-    font-family:'Poppins-Bold', sans-serif;;
-    
+    font-family:'Poppins-Bold', sans-serif;
+    size:2vw;
+    font-size: calc(10px + 1vw);
 }
 
 body, label, input, button, select {

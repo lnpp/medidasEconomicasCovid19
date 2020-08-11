@@ -30,7 +30,6 @@ CategoriaDeApoyo <- read_xlsx("www/BasesDeDatos/cuadros1.xlsx", sheet = 3)
 poblacionObjetivo <- read_xlsx("www/BasesDeDatos/cuadros1.xlsx", sheet = 4)
 names(CategoriaDeApoyo)[3] <- "Descripción"
 
-
 # Escudos ---- 
 # coats <- read.csv("www/BasesDeDatos/coats.csv")
 

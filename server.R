@@ -88,6 +88,12 @@ shinyServer(function(input, output, session) {
     output$coat <- renderImage({
       # toupper("Nuevo León")
       i <- toupper(input$selEstado2)
+      i <- str_replace_all(string = i, 
+                           c("Á" = "A", 
+                             "É" = "E", 
+                             "Í" = "I", 
+                             "Ó" = "O", 
+                             "Ú" = "U"))
       
       # i <- "MORELOS"
       # i <- toupper(input$mapa_shape_click$id)
@@ -301,7 +307,7 @@ shinyServer(function(input, output, session) {
       rename(No_medidas = n, 
              ENTIDAD = Entidad)
     
-    mapa_medidas <- merge(map, bd_count, by = "ENTIDAD")
+    mapa_medidas <- merge(map, bd_count, by = "ENTIDAD", all.y = T)
     
     paleta <- colorFactor("viridis",
                           domain = seq(0,max(mapa_medidas$No_medidas, na.rm = TRUE)))
