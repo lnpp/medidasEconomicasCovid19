@@ -11,7 +11,7 @@ ui <- navbarPage(fluid = TRUE,
   collapsible = TRUE, 
   title = "Medidas económicas Covid-19", 
   id = "intro",
-
+  
                  tabPanel("Introducción",
                           fluidPage(
                             fluidRow(
@@ -66,10 +66,13 @@ ui <- navbarPage(fluid = TRUE,
                           
                           h2("Equipo"),
                           p("El equipo del LNPP encargado del presente trabajo está conformado por: Eduardo Sojo, Cristina Galíndez y Alaín de Remes como coordinadores, así como Juvenal Campos, Nayeli Aguirre, Isabel Maya, Jorge Puga, Victor León, Josué González y Ángel Pérez como responsables de la base de datos."),
-                          p("Posteriormente se retoma el trabajo con la incormporación al equipo de Fernando Valdés Benavides, Helios Omar García Martínez y Ami Gabriela Sosa Vera, del programa de Prácticas Profesionales del LNPP."),
-                          p("Igualmente, agradecemos al Equipo del CONAMER por el interés y la ayuda para trabajar juntos en el mejoramiento de esta Base de Datos, así como a la cuenta de Twitter de @sanavigilancia por publicar información sobre los micrositios estatales que informan sobre la enfermedad Covid-19 a la población.")
+                          HTML("<p>Posteriormente se retoma el trabajo con la incorporación al equipo de <b>Fernando Valdés Benavides</b>, <b>Helios Omar García Martínez</b> y <b>Ami Gabriela Sosa Vera</b>, del programa de Prácticas Profesionales del LNPP.</p>"),
+                          p("Igualmente, agradecemos al Equipo del CONAMER por el interés y la ayuda para trabajar juntos en el mejoramiento de esta Base de Datos, así como a la cuenta de Twitter de @sanavigilancia por publicar información sobre los micrositios estatales que informan sobre la enfermedad Covid-19 a la población."), 
+                          banner
                         
-                          ),                 
+        
+                          
+        ),                 
                         
         tabPanel("Medidas por Entidad", 
                  fluidPage(
@@ -93,7 +96,8 @@ ui <- navbarPage(fluid = TRUE,
                             uiOutput("contenido2")
                          )
                     )
-                  )
+                  ), 
+                 banner
         ),         
                           
         tabPanel("Mapa",
@@ -121,6 +125,29 @@ ui <- navbarPage(fluid = TRUE,
                           )
                  ), #### 
 
+  tabPanel("Visualizaciones",
+           fluidPage(column(12,
+                            HTML("<h2>Visualizaciones por Entidad Federativa</h2>"))),
+           fluidPage(fluidRow(column(3, offset = 2, 
+                                     selectInput(inputId = "selEstado3",
+                                                 width = "100%",
+                                                 label = "Seleccione entidad",
+                                                 choices = sort(unique(medidas_graf$entidad)))),
+                              column(3, offset = 1,
+                                     selectInput(inputId = "selplot",
+                                                 label = "Seleccione tipo de gráfica",
+                                                 choices = tipos_graf,
+                                                 selected = tipos_graf[1])))),
+           
+           fluidPage(
+             column(9, offset = 1,
+                    withSpinner(plotOutput("vis")))
+             
+             ),
+            br(),
+            banner
+          ),
+  
       tabPanel("Enlaces",
             HTML("<img src = 'https://raw.githubusercontent.com/lnpp/medidasEconomicasCovid19/master/www/multimedia/LOGO_CONAMER.png' height = 60px style = 'display: block;
         margin-left: auto;
@@ -128,7 +155,8 @@ ui <- navbarPage(fluid = TRUE,
             HTML("<p style = 'text-align:center;'>Enlaces a las páginas del CONAMER por Entidad Federativa y a los Micrositios Covid-19 Estatales</p>"),
           wellPanel(id = "tablaPanel",style = "overflow-x:scroll; max-height: auto; background:white; ",
             tableOutput("tabEnlacesCONAMER")
-          ) # Fin del Panel
+          ), # Fin del Panel,
+          banner
         ), 
       
       tabPanel("Datos",                
@@ -182,7 +210,9 @@ ui <- navbarPage(fluid = TRUE,
                
                 br(),
                 br(),
-                withSpinner(DT::dataTableOutput("tabla"))
+                withSpinner(DT::dataTableOutput("tabla")),
+    br(),br(),
+    banner
          # FIN DE DATOS
       )
 )

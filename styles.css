@@ -1,5 +1,6 @@
 /*Fuentes*/
 @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 
 a{
   font-family: Poppins;
@@ -14,8 +15,8 @@ p{
   text-justify: inter-word;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
-  padding-left: 0px;
-  padding-right: 0px;
+  padding-left: 10px;
+  padding-right: 10px;
   
 }
 
@@ -350,7 +351,7 @@ h1, h2, h3, h4 { font-weight: 400; }
 
 .navbar-brand {
     text-align:center;
-    font-family:'Poppins-Bold', sans-serif;
+    font-family:'Poppins-bold', sans-serif;
     size:2vw;
     font-size: calc(10px + 1vw);
 }
@@ -372,3 +373,54 @@ body, label, input, button, select {
     box-shadow: 0 3px 14px rgba(0,0,0,0.4);
     width: 440px;
 }
+
+
+.shiny-output-error { visibility: hidden; }
+.shiny-output-error:before { visibility: hidden; }
+
+#barraInferior {
+    margin-bottom: 0px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    min-height: 20px;
+    background-color: #787878;
+    border: 1px solid white;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.downbartext {
+  color:white;
+}
+
+.col-sm-12 {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+#downbar {
+  padding-right: 5px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 10px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+

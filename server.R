@@ -1,5 +1,6 @@
 library(shiny)
 library(DT)
+library(tidyverse)
 
 shinyServer(function(input, output, session) {
 
@@ -268,16 +269,21 @@ shinyServer(function(input, output, session) {
 
   output$mapa2 <- renderLeaflet({
     
+    
     sel <- input$selMapa1
     seleccionado <- input$selMapa2
     
+    # sel <- "Tipo de Programa"
+    # seleccionado <- "Programas de Digitalización"
+    
+    #------------#
     # Mapa de medidas: 
-    bd <- read_xlsx(path = "www/BasesDeDatos/medidas.xlsx") %>% 
-      rename("Clasificación" = `Población Objetivo`) %>% 
-      mutate(Clasificación = str_remove(Clasificación, 
-                                        pattern = "\n"), 
-             Entidad = str_replace_all(Entidad, pattern = "De", replacement = "de"), 
-             Entidad = str_replace_all(Entidad, pattern = "La", replacement = "la"))
+    # bd <- read_xlsx(path = "www/BasesDeDatos/medidas.xlsx") %>% 
+    #   rename("Clasificación" = `Población Objetivo`) %>% 
+    #   mutate(Clasificación = str_remove(Clasificación, 
+    #                                     pattern = "\n"), 
+    #          Entidad = str_replace_all(Entidad, pattern = "De", replacement = "de"), 
+    #          Entidad = str_replace_all(Entidad, pattern = "La", replacement = "la"))
     
     if (sel == seleccion[1]){
       opts <- bd$`Tipo de Programa` %>% unique() %>% sort()
@@ -309,8 +315,13 @@ shinyServer(function(input, output, session) {
     
     mapa_medidas <- merge(map, bd_count, by = "ENTIDAD", all.y = T)
     
+    maxx <- max(mapa_medidas$No_medidas, na.rm = TRUE)
+    print(maxx)
+    
     paleta <- colorFactor("viridis",
-                          domain = seq(0,max(mapa_medidas$No_medidas, na.rm = TRUE)))
+                          domain = seq(from = 0,
+                                       to = maxx, 
+                                       by = 1))
     
     info2 <- function(edo = "JALISCO"){
       
@@ -360,7 +371,13 @@ shinyServer(function(input, output, session) {
     
     popup <- lapply(sort(unique(bd_fil$Entidad)), info2) %>% unlist()
     
-    leaflet(mapa_medidas) %>% 
+    
+    leaflet(mapa_medidas, options = leafletOptions(zoomControl = TRUE, 
+                                                   maxZoom = 6, minZoom = 4)) %>% 
+      setMaxBounds(lng1 = -60, 
+                   lat1 = 4, 
+                   lng2 = -140, 
+                   lat2 = 50) %>% 
       addProviderTiles("CartoDB.Positron") %>% 
       addPolygons(data = map,
                   color = "gray", 
@@ -377,12 +394,21 @@ shinyServer(function(input, output, session) {
                                "<b style = 'color:green;'>", seleccionado, "</b>", "<br>",
                                "Número de medidas:"), 
                 pal = paleta, 
-                values = mapa_medidas$No_medidas, 
+                values = seq(from = 1,
+                             to = maxx, 
+                             by = 1), 
                 position = "bottomleft") %>% 
       norte(position = "topright") %>% 
       addScaleBar(position = "bottomright")
     
-  })    
+  })   
+  
+  output$vis <- renderPlot({
+    # a <- 
+    # b <- 
+    graficas_medidas(tipo_de_grafica = input$selplot, estado = input$selEstado3)
+    
+  })
     
 })
 
